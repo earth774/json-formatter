@@ -56,43 +56,29 @@ const Home = () => {
           📑
         </button>
 
-        <div style={{ display: 'flex', flexDirection: 'row' }}>
-          {/* JSON Input Section */}
-          <div style={{ flex: 1 }}>
-            <label id="json-input-label" htmlFor="json-input">
-              Paste your JSON here
-            </label>
-            <CodeMirror
-              id="json-input"
-              placeholder="Paste your JSON here"
-              value={input}
-              height="calc(100vh - 80px)"
-              width="50dvw"
-              extensions={[
-                jsonLang(),
-                autocompletion({ override: [getJSONCompletions] }),
-              ]}
-              onChange={setInput}
-              aria-labelledby="json-input-label"
-            />
-          </div>
+        <div className="flex w-full">
+          <CodeMirror
+            placeholder="Paste your JSON here"
+            value={input}
+            height="calc(100vh - 80px)"
+            width="50dvw"
+            extensions={[
+              jsonLang(),
+              autocompletion({ override: [getJSONCompletions] }),
+            ]}
+            onChange={setInput}
+            aria-labelledby="json-input-label"
+          />
 
-          {/* Formatted JSON Output Section */}
-          <div style={{ flex: 1 }}>
-            <label id="json-output-label" htmlFor="json-output">
-              Formatted JSON
-            </label>
-            <CodeMirror
-              id="json-output"
-              placeholder="Formatted JSON"
-              value={output}
-              height="calc(100vh - 80px)"
-              width="50dvw"
-              extensions={[jsonLang()]}
-              readOnly
-              aria-labelledby="json-output-label"
-            />
-          </div>
+          <CodeMirror
+            placeholder="Formatted JSON"
+            value={output}
+            height="calc(100vh - 80px)"
+            width="50dvw"
+            extensions={[jsonLang()]}
+            readOnly
+            aria-labelledby="json-output-label"
+          />
         </div>
 
         {error && (
