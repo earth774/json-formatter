@@ -17,6 +17,7 @@ const Home = () => {
       setOutput(formatted);
       setError('');
     } catch (err) {
+      console.log(err);
       setError('Invalid JSON format');
       setOutput('');
     }
