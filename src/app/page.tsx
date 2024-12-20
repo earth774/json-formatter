@@ -67,6 +67,7 @@ const Home = () => {
               autocompletion({ override: [getJSONCompletions] }),
             ]}
             onChange={setInput}
+            aria-label="Paste your JSON here"
           />
 
           <CodeMirror
@@ -76,6 +77,7 @@ const Home = () => {
             width="50dvw"
             extensions={[jsonLang()]}
             readOnly
+            aria-label="Formatted JSON output"
           />
         </div>
 

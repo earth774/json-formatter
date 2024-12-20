@@ -19,3 +19,18 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.cm-placeholder {
+  color: #B0B0B0; /* Update this to a darker shade if needed */
+  background-color: #2E2E2E; /* Ensure sufficient contrast */
+}
+
+.cm-activeLine {
+  background-color: #3C3C3C; /* Ensure the text is readable on this background */
+  color: #FFFFFF; /* Light text for better contrast */
+}
+
+.cm-editor {
+  background-color: #1E1E1E; /* Ensure sufficient contrast */
+  color: #FFFFFF; /* Light text */
+}
