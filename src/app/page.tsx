@@ -1,9 +1,25 @@
 "use client";
-
+import dynamic from 'next/dynamic';
 import { useState } from "react";
-import { json as jsonLang } from "@codemirror/lang-json";
-import CodeMirror from "@uiw/react-codemirror";
+const CodeMirror = dynamic(() => import('@uiw/react-codemirror'), { ssr: false });
 import { autocompletion, CompletionContext } from "@codemirror/autocomplete";
+import { json as jsonLang } from "@codemirror/lang-json";
+
+const getJSONCompletions = (context: CompletionContext) => {
+  const suggestions = [
+    { label: '"name"', type: "keyword", info: "The name of the object" },
+    { label: '"age"', type: "keyword", info: "Age in years" },
+    { label: '"address"', type: "keyword", info: "The address of the person" },
+  ];
+
+  const word = context.matchBefore(/"[\w$]*"?/);
+  if (word?.from === word?.to && !context.explicit) return null;
+
+  return {
+    from: word ? word.from : context.pos,
+    options: suggestions,
+  };
+};
 
 const Home = () => {
   const [input, setInput] = useState('');
@@ -21,22 +37,6 @@ const Home = () => {
       setError('Invalid JSON format');
       setOutput('');
     }
-  };
-
-  const getJSONCompletions = (context: CompletionContext) => {
-    const suggestions = [
-      { label: '"name"', type: "keyword", info: "The name of the object" },
-      { label: '"age"', type: "keyword", info: "Age in years" },
-      { label: '"address"', type: "keyword", info: "The address of the person" },
-    ];
-
-    const word = context.matchBefore(/"[\w$]*"?/);
-    if (word?.from === word?.to && !context.explicit) return null;
-
-    return {
-      from: word ? word.from : context.pos,
-      options: suggestions,
-    };
   };
 
   return (
