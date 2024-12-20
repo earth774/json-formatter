@@ -27,11 +27,11 @@ body {
 }
 
 .cm-activeLine {
-  background-color: #3C3C3C; /* Ensure the text is readable on this background */
-  color: #FFFFFF; /* Light text for better contrast */
+  background-color: #3C3C3C;
+  /* color: #FFFFFF; */
 }
 
 .cm-editor {
-  background-color: #1E1E1E; /* Ensure sufficient contrast */
-  color: #FFFFFF; /* Light text */
+  background-color: #FFF;
+  /* color: #FFFFFF; */
 }
