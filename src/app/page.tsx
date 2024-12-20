@@ -1,4 +1,5 @@
 "use client";
+import { Roboto } from 'next/font/google';
 import dynamic from 'next/dynamic';
 import { useState } from "react";
 const CodeMirror = dynamic(() => import('@uiw/react-codemirror'), { ssr: false });
@@ -20,6 +21,11 @@ const getJSONCompletions = (context: CompletionContext) => {
     options: suggestions,
   };
 };
+
+const roboto = Roboto({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+});
 
 const Home = () => {
   const [input, setInput] = useState('');
@@ -43,7 +49,7 @@ const Home = () => {
     <div className="flex min-h-screen flex-col">
       <header className="h-10 border-b border-gray-300 bg-background">
         <nav className="flex h-full items-center justify-center">
-          <h1 className="text-2xl font-bold">JSON Formatter</h1>
+          <h1 className={`text-2xl font-bold ${roboto.className}`}>JSON Formatter</h1>
         </nav>
       </header>
 
