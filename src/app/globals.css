@@ -21,8 +21,9 @@ body {
 }
 
 .cm-placeholder {
-  color: #B0B0B0; /* Update this to a darker shade if needed */
-  background-color: #2E2E2E; /* Ensure sufficient contrast */
+  color: #FFFFFF;
+  opacity: 0.8;
+  background-color: #2E2E2E;
 }
 
 .cm-activeLine {
