@@ -57,29 +57,43 @@ const Home = () => {
         </button>
 
         <div className="flex w-full">
-          <CodeMirror
-            placeholder="Paste your JSON here"
-            value={input}
-            height="calc(100vh - 80px)"
-            width="50dvw"
-            extensions={[
-              jsonLang(),
-              autocompletion({ override: [getJSONCompletions] }),
-            ]}
-            onChange={setInput}
-            aria-labelledby="json-input-label"
-          />
+  {/* Input JSON Editor */}
+  <div className="flex flex-col w-1/2">
+    <label id="json-input-label" className="sr-only" htmlFor="json-input">
+      Paste your JSON here
+    </label>
+    <CodeMirror
+      id="json-input"
+      placeholder="Paste your JSON here"
+      value={input}
+      height="calc(100vh - 80px)"
+      width="100%"
+      extensions={[
+        jsonLang(),
+        autocompletion({ override: [getJSONCompletions] }),
+      ]}
+      onChange={setInput}
+      aria-labelledby="json-input-label"
+    />
+  </div>
 
-          <CodeMirror
-            placeholder="Formatted JSON"
-            value={output}
-            height="calc(100vh - 80px)"
-            width="50dvw"
-            extensions={[jsonLang()]}
-            readOnly
-            aria-labelledby="json-output-label"
-          />
-        </div>
+  {/* Formatted JSON Viewer */}
+  <div className="flex flex-col w-1/2">
+    <label id="json-output-label" className="sr-only" htmlFor="json-output">
+      Formatted JSON
+    </label>
+    <CodeMirror
+      id="json-output"
+      placeholder="Formatted JSON"
+      value={output}
+      height="calc(100vh - 80px)"
+      width="100%"
+      extensions={[jsonLang()]}
+      readOnly
+      aria-labelledby="json-output-label"
+    />
+  </div>
+</div>
 
         {error && (
           <div className="fixed right-5 top-5 z-10 flex items-center gap-2 rounded bg-red-50 px-6 py-3 shadow-md">
