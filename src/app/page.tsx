@@ -31,14 +31,12 @@ const roboto = Roboto({
 const Home = () => {
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
-  const [error, setError] = useState('');
 
   const handleFormatJSON = () => {
     try {
       const parsed = JSON.parse(input);
       const formatted = JSON.stringify(parsed, null, 2);
       setOutput(formatted);
-      setError('');
     } catch (err: any) {
       setOutput(err.message);
     }
@@ -47,7 +45,6 @@ const Home = () => {
   const handleImportJSON = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) {
-      setError('No file selected');
       return;
     }
 
@@ -57,16 +54,13 @@ const Home = () => {
       const parsed = JSON.parse(text);
       const formatted = JSON.stringify(parsed, null, 2);
       setOutput(formatted);
-      setError('');
     } catch (err: any) {
-      setError('Failed to parse JSON file');
       setOutput('');
     }
   };
 
   const handleDownloadJSON = () => {
     if (!output) {
-      setError('No JSON to download');
       return;
     }
 
@@ -86,7 +80,6 @@ const Home = () => {
       const parsed = JSON.parse(input);
       const minified = JSON.stringify(parsed);
       setOutput(minified);
-      setError('');
     } catch (err: any) {
       setOutput(err.message);
     }
