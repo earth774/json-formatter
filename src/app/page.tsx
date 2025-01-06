@@ -5,6 +5,7 @@ import { useState } from "react";
 const CodeMirror = dynamic(() => import('@uiw/react-codemirror'), { ssr: false });
 import { autocompletion, CompletionContext } from "@codemirror/autocomplete";
 import { json as jsonLang } from "@codemirror/lang-json";
+import { Download, Package, Sparkles, Upload } from 'lucide-react';
 
 const getJSONCompletions = (context: CompletionContext) => {
   const suggestions = [
@@ -43,26 +44,100 @@ const Home = () => {
     }
   };
 
+  const handleImportJSON = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) {
+      setError('No file selected');
+      return;
+    }
+
+    try {
+      const text = await file.text();
+      setInput(text);
+      const parsed = JSON.parse(text);
+      const formatted = JSON.stringify(parsed, null, 2);
+      setOutput(formatted);
+      setError('');
+    } catch (err: any) {
+      setError('Failed to parse JSON file');
+      setOutput('');
+    }
+  };
+
+  const handleDownloadJSON = () => {
+    if (!output) {
+      setError('No JSON to download');
+      return;
+    }
+
+    const blob = new Blob([output], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'formatted.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
+  const handleCompactJSON = () => {
+    try {
+      const parsed = JSON.parse(input);
+      const minified = JSON.stringify(parsed);
+      setOutput(minified);
+      setError('');
+    } catch (err: any) {
+      setOutput(err.message);
+    }
+  };
+
   return (
     <div className="flex min-h-screen flex-col">
-      <header className="h-10 border-b border-gray-300 bg-background">
-        <nav className="flex h-full items-center justify-center">
+      <header className="h-20 border-b border-gray-300 bg-background">
+        <nav className="flex h-full items-center justify-between mx-10">
           <h1 className={`text-2xl font-bold ${roboto.className}`}>JSON Formatter</h1>
+          <div className="flex-row items-center justify-center gap-2 hidden md:flex">
+            <label
+              htmlFor="file-upload"
+              className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow flex flex-row items-center justify-center gap-2 cursor-pointer"
+            >
+              <Upload className="w-4 h-4 mr-2" />
+              Import
+            </label>
+            <input
+              id="file-upload"
+              type="file"
+              accept=".json"
+              className="hidden"
+              onChange={handleImportJSON}
+            />
+            <button
+              onClick={handleDownloadJSON}
+              className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow flex flex-row items-center justify-center gap-2">
+              <Download className="w-4 h-4 mr-2" />
+              Download
+            </button>
+            <button
+              onClick={handleFormatJSON}
+              className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow flex flex-row items-center justify-center gap-2">
+              <Sparkles className="w-4 h-4 mr-2" />
+              Beautiful
+            </button>
+            <button
+              onClick={handleCompactJSON}
+              className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow flex flex-row items-center justify-center gap-2">
+              <Package className="w-4 h-4 mr-2" />
+              Compact
+            </button>
+          </div>
         </nav>
       </header>
 
       <main className="flex flex-1 flex-row">
-        <button
-          onClick={handleFormatJSON}
-          className="fixed bottom-5 right-5 z-10 rounded-full border border-gray-300 bg-background w-20 h-20 hover:bg-gray-100"
-          aria-label="Format JSON"
-        >
-          📑
-        </button>
-
-        <div className="flex w-full">
+        <div className="flex flex-col md:flex-row gap-4 md:gap-0 w-full">
           {/* Input JSON Editor */}
-          <div className="flex flex-col w-1/2">
+          <div className="flex flex-col w-full md:w-1/2">
             <label id="json-input-label" className="sr-only" htmlFor="json-input">
               Paste your JSON here
             </label>
@@ -70,7 +145,7 @@ const Home = () => {
               id="json-input"
               placeholder="Paste your JSON here"
               value={input}
-              height="calc(100vh - 80px)"
+              height="calc(100vh - 120px)"
               width="100%"
               extensions={[
                 jsonLang(),
@@ -81,8 +156,43 @@ const Home = () => {
             />
           </div>
 
+          <div className="flex-row items-center justify-center flex-wrap gap-2 flex md:hidden">
+            <label
+              htmlFor="file-upload"
+              className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow flex flex-row items-center justify-center gap-2 cursor-pointer"
+            >
+              <Upload className="w-4 h-4 mr-2" />
+              Import
+            </label>
+            <input
+              id="file-upload"
+              type="file"
+              accept=".json"
+              className="hidden"
+              onChange={handleImportJSON}
+            />
+            <button
+              onClick={handleDownloadJSON}
+              className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow flex flex-row items-center justify-center gap-2">
+              <Download className="w-4 h-4 mr-2" />
+              Download
+            </button>
+            <button
+              onClick={handleFormatJSON}
+              className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow flex flex-row items-center justify-center gap-2">
+              <Sparkles className="w-4 h-4 mr-2" />
+              Beautiful
+            </button>
+            <button
+              onClick={handleCompactJSON}
+              className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow flex flex-row items-center justify-center gap-2">
+              <Package className="w-4 h-4 mr-2" />
+              Compact
+            </button>
+          </div>
+
           {/* Formatted JSON Viewer */}
-          <div className="flex flex-col w-1/2">
+          <div className="flex flex-col w-full md:w-1/2">
             <label id="json-output-label" className="sr-only" htmlFor="json-output">
               Formatted JSON
             </label>
@@ -90,27 +200,16 @@ const Home = () => {
               id="json-output"
               placeholder="Formatted JSON"
               value={output}
-              height="calc(100vh - 80px)"
+              height="calc(100vh - 120px)"
               width="100%"
-              extensions={[jsonLang()]}
+              extensions={[
+                jsonLang(),
+              ]}
               readOnly
               aria-labelledby="json-output-label"
             />
           </div>
         </div>
-
-        {error && (
-          <div className="fixed right-5 top-5 z-10 flex items-center gap-2 rounded bg-red-50 px-6 py-3 shadow-md">
-            <span className="text-red-800">{error}</span>
-            <button
-              onClick={() => setError('')}
-              className="text-red-800 hover:text-red-900"
-              aria-label="Close error message"
-            >
-              ✕
-            </button>
-          </div>
-        )}
       </main>
 
       <footer className="h-10 border-t border-gray-300 bg-background">
