@@ -38,10 +38,8 @@ const Home = () => {
       const formatted = JSON.stringify(parsed, null, 2);
       setOutput(formatted);
       setError('');
-    } catch (err) {
-      console.log(err);
-      setError('Invalid JSON format');
-      setOutput('');
+    } catch (err: any) {
+      setOutput(err.message);
     }
   };
 
