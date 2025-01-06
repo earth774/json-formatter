@@ -37,8 +37,12 @@ const Home = () => {
       const parsed = JSON.parse(input);
       const formatted = JSON.stringify(parsed, null, 2);
       setOutput(formatted);
-    } catch (err: any) {
-      setOutput(err.message);
+    } catch (err) {
+      if (err instanceof Error) {
+        setOutput(err.message);
+      } else {
+        setOutput('An unknown error occurred');
+      }
     }
   };
 
@@ -54,8 +58,12 @@ const Home = () => {
       const parsed = JSON.parse(text);
       const formatted = JSON.stringify(parsed, null, 2);
       setOutput(formatted);
-    } catch (err: any) {
-      setOutput('');
+    } catch (err) {
+      if (err instanceof Error) {
+        setOutput(err.message);
+      } else {
+        setOutput('An unknown error occurred');
+      }
     }
   };
 
@@ -80,8 +88,12 @@ const Home = () => {
       const parsed = JSON.parse(input);
       const minified = JSON.stringify(parsed);
       setOutput(minified);
-    } catch (err: any) {
-      setOutput(err.message);
+    } catch (err) {
+      if (err instanceof Error) {
+        setOutput(err.message);
+      } else {
+        setOutput('An unknown error occurred');
+      }
     }
   };
 
