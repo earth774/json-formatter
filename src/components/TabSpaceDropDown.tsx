@@ -8,8 +8,16 @@ const TabSpaceDropDown = () => {
 
   return (<div>
     <Select defaultValue="2" onValueChange={(value) => {
-      setTabSpace(parseInt(value))
-      setOutput(JSON.stringify(JSON.parse(input), null, parseInt(value)))
+      try {
+        setTabSpace(parseInt(value))
+        setOutput(JSON.stringify(JSON.parse(input), null, parseInt(value)))
+      } catch (err ) {
+        if (err instanceof Error) {
+          setOutput(err.message);
+        } else {
+          setOutput('An unknown error occurred');
+        }
+      }
     }}>
       <SelectTrigger className="w-[50px] h-[42px] border border-gray-400 rounded shadow [&_svg]:hidden">
         <SelectValue placeholder="Tab Space" />
