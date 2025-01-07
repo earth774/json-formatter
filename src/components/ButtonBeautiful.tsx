@@ -1,6 +1,6 @@
 import useInputOutput from "@/store/useInputOutput";
 import useTabspace from "@/store/useTabspace";
-import { Sparkles, Upload } from "lucide-react";
+import { Sparkles } from "lucide-react";
 
 const ButtonBeautiful = () => {
   const { tabSpace } = useTabspace()

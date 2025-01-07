@@ -1,10 +1,10 @@
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import useInputOutput from "@/store/useInputOutput";
 import useTabspace from "@/store/useTabspace";
 
 const TabSpaceDropDown = () => {
-  const { tabSpace, setTabSpace } = useTabspace()
-  const { input, output, setOutput } = useInputOutput()
+  const { setTabSpace } = useTabspace()
+  const { input, setOutput } = useInputOutput()
 
   return (<div>
     <Select defaultValue="2" onValueChange={(value) => {
