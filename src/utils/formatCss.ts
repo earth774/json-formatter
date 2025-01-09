@@ -31,6 +31,6 @@ export const formatCSS = (css: string, tabSpace: number): string => {
 
         return formattedRules.join('\n\n');
     } catch (error) {
-        throw new Error('Invalid CSS');
+        throw new Error(`Failed to format CSS: ${error}`);
     }
 };

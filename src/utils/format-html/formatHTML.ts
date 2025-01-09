@@ -10,8 +10,8 @@ export const formatHTML = (html: string,tabSpace:number): string => {
         }
 
         // Check for balanced tags
-        const openTags = (html.match(/<[^!][^/][^>]*>/g) || []).length;
-        const closeTags = (html.match(/<\/[^>]*>/g) || []).length;
+        // const openTags = (html.match(/<[^!][^/][^>]*>/g) || []).length;
+        // const closeTags = (html.match(/<\/[^>]*>/g) || []).length;
 
         // Check for invalid characters
         // const invalidChars = /[<>](?![^<>]*>)/g;

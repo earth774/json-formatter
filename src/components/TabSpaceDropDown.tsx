@@ -11,14 +11,27 @@ const TabSpaceDropDown = () => {
   const { input, setOutput } = useInputOutput()
   const { language } = useLanguage()
 
+  const formatByLanguage = async (value: string) => {
+    const spaces = parseInt(value);
+    
+    switch (language) {
+      case 'json':
+        return JSON.stringify(JSON.parse(input), null, spaces);
+      case 'css':
+        return await formatCSS(input, spaces);
+      case 'html':
+        return formatHTML(input, spaces);
+      case 'js':
+        return await formatJS(input, spaces);
+      default:
+        return input;
+    }
+  };
+
   return (<div>
-    <Select defaultValue="2" onValueChange={(value) => {
+    <Select defaultValue="2" onValueChange={async (value:string) => {
       try {
-        (language === 'json') ? setOutput(JSON.stringify(JSON.parse(input), null, parseInt(value))) :
-        (language === 'css') ? setOutput(formatCSS(input, parseInt(value))) :
-        (language === 'html') ? setOutput(formatHTML(input, parseInt(value))) :
-        (language === 'js') ? setOutput(formatJS(input, parseInt(value))) :
-        setOutput(input)
+        setOutput(await formatByLanguage(value))
         setTabSpace(parseInt(value))
       } catch (err ) {
         if (err instanceof Error) {

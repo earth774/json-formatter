@@ -1,6 +1,5 @@
 import useInputOutput from "@/store/useInputOutput";
 import useLanguage from "@/store/useLanguage";
-import useTabspace from "@/store/useTabspace";
 import { minifyCSS } from "@/utils/format-css/minifyCss";
 import { minifyHTML } from "@/utils/format-html/minifyHTML";
 import { minifyJS } from "@/utils/format-js/minifyJS";
@@ -8,7 +7,6 @@ import { Package } from "lucide-react";
 
 const ButtonUpload = () => {
   const { input, setOutput } = useInputOutput()
-  const { tabSpace } = useTabspace()
   const { language } = useLanguage()
 
   const handleCompact = async () => {
