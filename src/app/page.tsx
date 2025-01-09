@@ -1,28 +1,27 @@
 "use client";
-import { Roboto } from 'next/font/google';
 import dynamic from 'next/dynamic';
 const CodeMirror = dynamic(() => import('@uiw/react-codemirror'), { ssr: false });
 import { json as jsonLang } from "@codemirror/lang-json";
+import { css as cssLang } from "@codemirror/lang-css";
+import { html as htmlLang } from "@codemirror/lang-html";
+import { javascript as jsLang } from "@codemirror/lang-javascript";
 import TabSpaceDropDown from '@/components/TabSpaceDropDown';
 import useInputOutput from '@/store/useInputOutput';
 import ButtonUpload from '@/components/ButtonUpload';
 import ButtonDownload from '@/components/ButtonDownload';
 import ButtonBeautiful from '@/components/ButtonBeautiful';
 import ButtonCompact from '@/components/ButtonCompact';
-
-const roboto = Roboto({
-  subsets: ['latin'],
-  weight: ['400', '700'],
-});
+import LanguageDropDown from '@/components/LanguageDropDown';
+import useLanguage from '@/store/useLanguage';
 
 const Home = () => {
   const { input, output, setInput } = useInputOutput()
-
+  const { language } = useLanguage()
   return (
     <div className="flex min-h-screen flex-col">
       <header className="h-20 border-b border-gray-300 bg-background">
         <nav className="flex h-full items-center justify-between mx-10">
-          <h1 className={`text-2xl font-bold ${roboto.className}`}>JSON Formatter</h1>
+          <LanguageDropDown />
           <div className="flex-row items-center justify-center gap-2 hidden md:flex">
             <TabSpaceDropDown />
             <ButtonUpload />
@@ -37,20 +36,24 @@ const Home = () => {
         <div className="flex flex-col md:flex-row gap-4 md:gap-0 w-full">
           {/* Input JSON Editor */}
           <div className="flex flex-col w-full md:w-1/2">
-            <label id="json-input-label" className="sr-only" htmlFor="json-input">
-              Paste your JSON here
+            <label id={`${language}-input-label`} className="sr-only" htmlFor={`${language}-input`}>
+              Paste your {language.toUpperCase()} here
             </label>
             <CodeMirror
-              id="json-input"
-              placeholder="Paste your JSON here"
+              id={`${language}-input`}
+              placeholder={`Paste your ${language.toUpperCase()} here`}
               value={input}
               height="calc(100vh - 120px)"
               width="100%"
               extensions={[
-                jsonLang(),
+                language === 'json' ? jsonLang() :
+                language === 'css' ? cssLang() :
+                language === 'html' ? htmlLang() :
+                language === 'js' ? jsLang() :
+                jsLang() // Default to JavaScript if no language matches
               ]}
               onChange={setInput}
-              aria-labelledby="json-input-label"
+              aria-labelledby={`${language}-input-label`}
             />
           </div>
 
@@ -62,22 +65,26 @@ const Home = () => {
             <ButtonCompact />
           </div>
 
-          {/* Formatted JSON Viewer */}
+          {/* Formatted Viewer */}
           <div className="flex flex-col w-full md:w-1/2">
-            <label id="json-output-label" className="sr-only" htmlFor="json-output">
-              Formatted JSON
+            <label id={`${language}-output-label`} className="sr-only" htmlFor={`${language}-output`}>
+              Formatted {language.toUpperCase()}
             </label>
             <CodeMirror
-              id="json-output"
-              placeholder="Formatted JSON"
+              id={`${language}-output`}
+              placeholder={`Formatted ${language.toUpperCase()}`}
               value={output}
               height="calc(100vh - 120px)"
               width="100%"
               extensions={[
-                jsonLang(),
+                language === 'json' ? jsonLang() :
+                language === 'css' ? cssLang() :
+                language === 'html' ? htmlLang() :
+                language === 'js' ? jsLang() :
+                jsLang() // Default to JavaScript if no language matches
               ]}
               readOnly
-              aria-labelledby="json-output-label"
+              aria-labelledby={`${language}-output-label`}
             />
           </div>
         </div>

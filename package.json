@@ -11,6 +11,9 @@
   "dependencies": {
     "@babel/parser": "^7.26.3",
     "@codemirror/autocomplete": "^6.18.4",
+    "@codemirror/lang-css": "^6.3.1",
+    "@codemirror/lang-html": "^6.4.9",
+    "@codemirror/lang-javascript": "^6.2.2",
     "@codemirror/lang-json": "^6.0.1",
     "@codemirror/state": "^6.5.0",
     "@codemirror/view": "^6.36.1",
@@ -21,6 +24,7 @@
     "clsx": "^2.1.1",
     "lucide-react": "^0.469.0",
     "next": "15.1.2",
+    "prettier": "^3.4.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "standalone": "^0.0.1",

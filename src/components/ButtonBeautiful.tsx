@@ -1,15 +1,25 @@
+'use client'
+
 import useInputOutput from "@/store/useInputOutput";
+import useLanguage from "@/store/useLanguage";
 import useTabspace from "@/store/useTabspace";
+import { formatCSS } from "@/utils/format-css/formatCss";
+import { formatHTML } from "@/utils/format-html/formatHTML";
+import { formatJS } from "@/utils/format-js/formatJS";
 import { Sparkles } from "lucide-react";
 
 const ButtonBeautiful = () => {
   const { tabSpace } = useTabspace()
   const { input, setOutput } = useInputOutput()
+  const { language } = useLanguage()
 
-  const handleFormatJSON = () => {
+  const handleFormat = async () => {
     try {
-      const parsed = JSON.parse(input);
-      const formatted = JSON.stringify(parsed, null, tabSpace);
+      const formatted = language === 'json' ? JSON.stringify(JSON.parse(input), null, tabSpace) :
+      language === 'css' ? formatCSS(input, tabSpace) :
+      language === 'html' ? formatHTML(input, tabSpace) :
+      language === 'js' ? await formatJS(input, tabSpace) :
+      input
       setOutput(formatted);
     } catch (err) {
       if (err instanceof Error) {
@@ -23,7 +33,7 @@ const ButtonBeautiful = () => {
   return (
     <div>
       <button
-        onClick={handleFormatJSON}
+        onClick={handleFormat}
         className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow flex flex-row items-center justify-center gap-2">
         <Sparkles className="w-4 h-4 mr-2" />
         Beautiful

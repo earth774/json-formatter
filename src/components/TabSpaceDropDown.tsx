@@ -1,16 +1,25 @@
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import useInputOutput from "@/store/useInputOutput";
+import useLanguage from "@/store/useLanguage";
 import useTabspace from "@/store/useTabspace";
+import { formatCSS } from "@/utils/format-css/formatCss";
+import { formatHTML } from "@/utils/format-html/formatHTML";
+import { formatJS } from "@/utils/format-js/formatJS";
 
 const TabSpaceDropDown = () => {
   const { setTabSpace } = useTabspace()
   const { input, setOutput } = useInputOutput()
+  const { language } = useLanguage()
 
   return (<div>
     <Select defaultValue="2" onValueChange={(value) => {
       try {
+        (language === 'json') ? setOutput(JSON.stringify(JSON.parse(input), null, parseInt(value))) :
+        (language === 'css') ? setOutput(formatCSS(input, parseInt(value))) :
+        (language === 'html') ? setOutput(formatHTML(input, parseInt(value))) :
+        (language === 'js') ? setOutput(formatJS(input, parseInt(value))) :
+        setOutput(input)
         setTabSpace(parseInt(value))
-        setOutput(JSON.stringify(JSON.parse(input), null, parseInt(value)))
       } catch (err ) {
         if (err instanceof Error) {
           setOutput(err.message);

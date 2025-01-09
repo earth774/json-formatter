@@ -1,12 +1,17 @@
 import useInputOutput from "@/store/useInputOutput";
+import useLanguage from "@/store/useLanguage";
 import useTabspace from "@/store/useTabspace";
+import { formatCSS } from "@/utils/format-css/formatCss";
+import { formatHTML } from "@/utils/format-html/formatHTML";
+import { formatJS } from "@/utils/format-js/formatJS";
 import { Upload } from "lucide-react";
 
 const ButtonUpload = () => {
     const { tabSpace } = useTabspace()
     const { setInput, setOutput } = useInputOutput()
+    const { language } = useLanguage()
 
-    const handleImportJSON = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleImport = async (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
         if (!file) {
             return;
@@ -15,9 +20,12 @@ const ButtonUpload = () => {
         try {
             const text = await file.text();
             setInput(text);
-            const parsed = JSON.parse(text);
-            const formatted = JSON.stringify(parsed, null, tabSpace);
-            setOutput(formatted);
+            const parsed = language === 'json' ? JSON.parse(text) :
+            language === 'css' ? formatCSS(text, tabSpace) :
+            language === 'html' ? formatHTML(text, tabSpace) :
+            language === 'js' ? formatJS(text, tabSpace) :
+            text
+            setOutput(parsed);
         } catch (err) {
             if (err instanceof Error) {
                 setOutput(err.message);
@@ -39,9 +47,9 @@ const ButtonUpload = () => {
             <input
                 id="file-upload"
                 type="file"
-                accept=".json"
+                accept={`.${language}`}
                 className="hidden"
-                onChange={handleImportJSON}
+                onChange={handleImport}
             />
         </div>
     )
