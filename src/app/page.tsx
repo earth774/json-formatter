@@ -20,7 +20,7 @@ import ButtonSave from "@/components/ButtonSave";
 const Home = () => {
   const { input, output, setInput } = useInputOutput();
   const { language } = useLanguage();
-  
+
   return (
     <div className="flex min-h-screen flex-col">
       <header className="h-20 border-b border-gray-300 bg-background">
@@ -46,11 +46,11 @@ const Home = () => {
               className="sr-only"
               htmlFor={`${language}-input`}
             >
-              Paste your {language.toUpperCase()} here
+              Paste your {language?.toUpperCase()} here
             </label>
             <CodeMirror
               id={`${language}-input`}
-              placeholder={`Paste your ${language.toUpperCase()} here`}
+              placeholder={`Paste your ${language?.toUpperCase()} here`}
               value={input}
               height="calc(100vh - 120px)"
               width="100%"
@@ -86,11 +86,11 @@ const Home = () => {
               className="sr-only"
               htmlFor={`${language}-output`}
             >
-              Formatted {language.toUpperCase()}
+              Formatted {language?.toUpperCase()}
             </label>
             <CodeMirror
               id={`${language}-output`}
-              placeholder={`Formatted ${language.toUpperCase()}`}
+              placeholder={`Formatted ${language?.toUpperCase()}`}
               value={output}
               height="calc(100vh - 120px)"
               width="100%"

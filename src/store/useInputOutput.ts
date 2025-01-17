@@ -11,8 +11,9 @@ interface InputOutputState {
 // Create the store
 const getInitialInput = () => {
   if (typeof window !== "undefined") {
-    const data = JSON.parse(localStorage.getItem("data") || "");
-    return data.input;
+    const data = localStorage.getItem("data");
+    const dataParsed = data ? JSON.parse(data) : "";
+    return dataParsed.input;
   }
   return "";
 };

@@ -9,10 +9,11 @@ interface LanguageState {
 
 const getInitialLanguage = () => {
     if (typeof window !== "undefined") {
-      const data = JSON.parse(localStorage.getItem("data") || "");
-      return data.language;
+      const data = localStorage.getItem("data");
+      const dataParsed = data ? JSON.parse(data) : { language: 'json' };
+      return dataParsed.language;
     }
-    return "";
+    return "json";
   };
 
 const useLanguage = create<LanguageState>()(
