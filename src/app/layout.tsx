@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from 'next/script'
 import "./globals.css";
+import { Toaster } from "@/components/ui/toaster"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "JSON Formatter & Minifier - จัดระเบียบ JSON ง่ายในคลิกเดียว",
-  description: "JSON Formatter และ Validator ออนไลน์ที่รวดเร็ว ใช้งานง่าย รองรับ JSON Beautify และ Minify เหมาะสำหรับนักพัฒนาและผู้ใช้ทั่วไป",
+  title: "Formatter & Minifier - จัดระเบียบง่ายในคลิกเดียว",
+  description: "Formatter & Minifier ออนไลน์ที่รวดเร็ว ใช้งานง่าย รองรับ Beautify และ Minify เหมาะสำหรับนักพัฒนาและผู้ใช้ทั่วไป",
 };
 
 export default function RootLayout({
@@ -29,6 +30,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
+        <Toaster />
       </body>
       <Script src="https://scripts.simpleanalyticscdn.com/latest.js"  />
     </html>

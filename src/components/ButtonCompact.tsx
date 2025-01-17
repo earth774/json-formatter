@@ -1,8 +1,7 @@
 import useInputOutput from "@/store/useInputOutput";
 import useLanguage from "@/store/useLanguage";
 import { minifyCSS } from "@/utils/format-css/minifyCss";
-import { minifyHTML } from "@/utils/format-html/minifyHTML";
-import { minifyJS } from "@/utils/format-js/minifyJS";
+import { minifySQL } from "@/utils/format-sql/minifySql";
 import { Package } from "lucide-react";
 
 const ButtonUpload = () => {
@@ -13,8 +12,7 @@ const ButtonUpload = () => {
     try {
       const compacted = language === 'json' ? JSON.stringify(JSON.parse(input)) :
       language === 'css' ? minifyCSS(input) :
-      language === 'html' ? minifyHTML(input) :
-      language === 'js' ? await minifyJS(input) :
+      language === 'sql' ? minifySQL(input) :
       input
       setOutput(compacted);
     } catch (err) {

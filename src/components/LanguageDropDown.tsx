@@ -22,8 +22,7 @@ const LanguageDropDown = () => {
         <SelectGroup>
           <SelectItem value="json" className="text-2xl font-bold" >JSON Formatter</SelectItem>
           <SelectItem value="css" className="text-2xl font-bold" >CSS Formatter</SelectItem>
-          {/* <SelectItem value="html" className="text-2xl font-bold" >HTML Formatter</SelectItem>
-          <SelectItem value="js" className="text-2xl font-bold" >JS Formatter</SelectItem> */}
+          <SelectItem value="sql" className="text-2xl font-bold" >SQL Formatter</SelectItem>
         </SelectGroup>
       </SelectContent>
     </Select>

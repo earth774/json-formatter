@@ -2,8 +2,7 @@ import useInputOutput from "@/store/useInputOutput";
 import useLanguage from "@/store/useLanguage";
 import useTabspace from "@/store/useTabspace";
 import { formatCSS } from "@/utils/format-css/formatCss";
-import { formatHTML } from "@/utils/format-html/formatHTML";
-import { formatJS } from "@/utils/format-js/formatJS";
+import { formatSQL } from "@/utils/format-sql/formatSql";
 import { Upload } from "lucide-react";
 
 const ButtonUpload = () => {
@@ -22,8 +21,7 @@ const ButtonUpload = () => {
             setInput(text);
             const parsed = language === 'json' ? JSON.parse(text) :
             language === 'css' ? formatCSS(text, tabSpace) :
-            language === 'html' ? formatHTML(text, tabSpace) :
-            language === 'js' ? formatJS(text, tabSpace) :
+            language === 'sql' ? formatSQL(text, tabSpace) :
             text
             setOutput(parsed);
         } catch (err) {

@@ -1,22 +1,26 @@
 "use client";
-import dynamic from 'next/dynamic';
-const CodeMirror = dynamic(() => import('@uiw/react-codemirror'), { ssr: false });
+import dynamic from "next/dynamic";
+const CodeMirror = dynamic(() => import("@uiw/react-codemirror"), {
+  ssr: false,
+});
 import { json as jsonLang } from "@codemirror/lang-json";
 import { css as cssLang } from "@codemirror/lang-css";
 import { html as htmlLang } from "@codemirror/lang-html";
 import { javascript as jsLang } from "@codemirror/lang-javascript";
-import TabSpaceDropDown from '@/components/TabSpaceDropDown';
-import useInputOutput from '@/store/useInputOutput';
-import ButtonUpload from '@/components/ButtonUpload';
-import ButtonDownload from '@/components/ButtonDownload';
-import ButtonBeautiful from '@/components/ButtonBeautiful';
-import ButtonCompact from '@/components/ButtonCompact';
-import LanguageDropDown from '@/components/LanguageDropDown';
-import useLanguage from '@/store/useLanguage';
+import TabSpaceDropDown from "@/components/TabSpaceDropDown";
+import useInputOutput from "@/store/useInputOutput";
+import ButtonUpload from "@/components/ButtonUpload";
+import ButtonDownload from "@/components/ButtonDownload";
+import ButtonBeautiful from "@/components/ButtonBeautiful";
+import ButtonCompact from "@/components/ButtonCompact";
+import LanguageDropDown from "@/components/LanguageDropDown";
+import useLanguage from "@/store/useLanguage";
+import ButtonSave from "@/components/ButtonSave";
 
 const Home = () => {
-  const { input, output, setInput } = useInputOutput()
-  const { language } = useLanguage()
+  const { input, output, setInput } = useInputOutput();
+  const { language } = useLanguage();
+  
   return (
     <div className="flex min-h-screen flex-col">
       <header className="h-20 border-b border-gray-300 bg-background">
@@ -28,6 +32,7 @@ const Home = () => {
             <ButtonDownload />
             <ButtonBeautiful />
             <ButtonCompact />
+            <ButtonSave />
           </div>
         </nav>
       </header>
@@ -36,7 +41,11 @@ const Home = () => {
         <div className="flex flex-col md:flex-row gap-4 md:gap-0 w-full">
           {/* Input JSON Editor */}
           <div className="flex flex-col w-full md:w-1/2">
-            <label id={`${language}-input-label`} className="sr-only" htmlFor={`${language}-input`}>
+            <label
+              id={`${language}-input-label`}
+              className="sr-only"
+              htmlFor={`${language}-input`}
+            >
               Paste your {language.toUpperCase()} here
             </label>
             <CodeMirror
@@ -46,11 +55,15 @@ const Home = () => {
               height="calc(100vh - 120px)"
               width="100%"
               extensions={[
-                language === 'json' ? jsonLang() :
-                language === 'css' ? cssLang() :
-                language === 'html' ? htmlLang() :
-                language === 'js' ? jsLang() :
-                jsLang() // Default to JavaScript if no language matches
+                language === "json"
+                  ? jsonLang()
+                  : language === "css"
+                    ? cssLang()
+                    : language === "html"
+                      ? htmlLang()
+                      : language === "js"
+                        ? jsLang()
+                        : jsLang(), // Default to JavaScript if no language matches
               ]}
               onChange={setInput}
               aria-labelledby={`${language}-input-label`}
@@ -63,11 +76,16 @@ const Home = () => {
             <ButtonDownload />
             <ButtonBeautiful />
             <ButtonCompact />
+            <ButtonSave />
           </div>
 
           {/* Formatted Viewer */}
           <div className="flex flex-col w-full md:w-1/2">
-            <label id={`${language}-output-label`} className="sr-only" htmlFor={`${language}-output`}>
+            <label
+              id={`${language}-output-label`}
+              className="sr-only"
+              htmlFor={`${language}-output`}
+            >
               Formatted {language.toUpperCase()}
             </label>
             <CodeMirror
@@ -77,11 +95,15 @@ const Home = () => {
               height="calc(100vh - 120px)"
               width="100%"
               extensions={[
-                language === 'json' ? jsonLang() :
-                language === 'css' ? cssLang() :
-                language === 'html' ? htmlLang() :
-                language === 'js' ? jsLang() :
-                jsLang() // Default to JavaScript if no language matches
+                language === "json"
+                  ? jsonLang()
+                  : language === "css"
+                    ? cssLang()
+                    : language === "html"
+                      ? htmlLang()
+                      : language === "js"
+                        ? jsLang()
+                        : jsLang(), // Default to JavaScript if no language matches
               ]}
               readOnly
               aria-labelledby={`${language}-output-label`}

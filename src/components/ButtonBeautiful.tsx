@@ -4,8 +4,7 @@ import useInputOutput from "@/store/useInputOutput";
 import useLanguage from "@/store/useLanguage";
 import useTabspace from "@/store/useTabspace";
 import { formatCSS } from "@/utils/format-css/formatCss";
-import { formatHTML } from "@/utils/format-html/formatHTML";
-import { formatJS } from "@/utils/format-js/formatJS";
+import { formatSQL } from "@/utils/format-sql/formatSql";
 import { Sparkles } from "lucide-react";
 
 const ButtonBeautiful = () => {
@@ -17,8 +16,7 @@ const ButtonBeautiful = () => {
     try {
       const formatted = language === 'json' ? JSON.stringify(JSON.parse(input), null, tabSpace) :
       language === 'css' ? formatCSS(input, tabSpace) :
-      language === 'html' ? formatHTML(input, tabSpace) :
-      language === 'js' ? await formatJS(input, tabSpace) :
+      language === 'sql' ? await formatSQL(input, tabSpace) :
       input
       setOutput(formatted);
     } catch (err) {

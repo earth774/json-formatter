@@ -3,8 +3,7 @@ import useInputOutput from "@/store/useInputOutput";
 import useLanguage from "@/store/useLanguage";
 import useTabspace from "@/store/useTabspace";
 import { formatCSS } from "@/utils/format-css/formatCss";
-import { formatHTML } from "@/utils/format-html/formatHTML";
-import { formatJS } from "@/utils/format-js/formatJS";
+import { formatSQL } from "@/utils/format-sql/formatSql";
 
 const TabSpaceDropDown = () => {
   const { setTabSpace } = useTabspace()
@@ -19,10 +18,8 @@ const TabSpaceDropDown = () => {
         return JSON.stringify(JSON.parse(input), null, spaces);
       case 'css':
         return await formatCSS(input, spaces);
-      case 'html':
-        return formatHTML(input, spaces);
-      case 'js':
-        return await formatJS(input, spaces);
+      case 'sql':
+        return formatSQL(input, spaces);
       default:
         return input;
     }
