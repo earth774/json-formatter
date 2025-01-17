@@ -3,19 +3,35 @@ import dynamic from "next/dynamic";
 const CodeMirror = dynamic(() => import("@uiw/react-codemirror"), {
   ssr: false,
 });
+const ButtonUpload = dynamic(() => import("@/components/ButtonUpload"), {
+  ssr: true,
+});
+const ButtonDownload = dynamic(() => import("@/components/ButtonDownload"), {
+  ssr: true,
+});
+const ButtonBeautiful = dynamic(() => import("@/components/ButtonBeautiful"), {
+  ssr: true,
+});
+const ButtonCompact = dynamic(() => import("@/components/ButtonCompact"), {
+  ssr: true,
+});
+const LanguageDropDown = dynamic(() => import("@/components/LanguageDropDown"), {
+  ssr: true,
+});
+const ButtonSave = dynamic(() => import("@/components/ButtonSave"), {
+  ssr: true,
+});
+const TabSpaceDropDown = dynamic(() => import("@/components/TabSpaceDropDown"), {
+  ssr: true,
+});
+
 import { json as jsonLang } from "@codemirror/lang-json";
 import { css as cssLang } from "@codemirror/lang-css";
 import { html as htmlLang } from "@codemirror/lang-html";
 import { javascript as jsLang } from "@codemirror/lang-javascript";
-import TabSpaceDropDown from "@/components/TabSpaceDropDown";
 import useInputOutput from "@/store/useInputOutput";
-import ButtonUpload from "@/components/ButtonUpload";
-import ButtonDownload from "@/components/ButtonDownload";
-import ButtonBeautiful from "@/components/ButtonBeautiful";
-import ButtonCompact from "@/components/ButtonCompact";
-import LanguageDropDown from "@/components/LanguageDropDown";
 import useLanguage from "@/store/useLanguage";
-import ButtonSave from "@/components/ButtonSave";
+
 
 const Home = () => {
   const { input, output, setInput } = useInputOutput();
