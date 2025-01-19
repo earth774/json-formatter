@@ -33,8 +33,6 @@ const TabSpaceDropDown = dynamic(
 
 import { json as jsonLang } from "@codemirror/lang-json";
 import { css as cssLang } from "@codemirror/lang-css";
-import { html as htmlLang } from "@codemirror/lang-html";
-import { javascript as jsLang } from "@codemirror/lang-javascript";
 import { sql as sqlLang } from "@codemirror/lang-sql";
 import useInputOutput from "@/store/useInputOutput";
 import useLanguage from "@/store/useLanguage";
