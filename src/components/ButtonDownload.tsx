@@ -13,8 +13,7 @@ const ButtonDownload = () => {
     const mimeTypes = {
       json: 'application/json',
       css: 'text/css',
-      html: 'text/html',
-      js: 'text/javascript' 
+      sql: 'text/sql',
     };
 
     if (language in mimeTypes) {

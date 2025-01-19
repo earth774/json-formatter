@@ -19,7 +19,7 @@ const TabSpaceDropDown = () => {
       case 'css':
         return await formatCSS(input, spaces);
       case 'sql':
-        return formatSQL(input, spaces);
+        return await formatSQL(input, spaces);
       default:
         return input;
     }

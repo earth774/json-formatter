@@ -21,7 +21,7 @@ const ButtonUpload = () => {
             setInput(text);
             const parsed = language === 'json' ? JSON.parse(text) :
             language === 'css' ? formatCSS(text, tabSpace) :
-            language === 'sql' ? formatSQL(text, tabSpace) :
+            language === 'sql' ? await formatSQL(text, tabSpace) :
             text
             setOutput(parsed);
         } catch (err) {

@@ -35,6 +35,7 @@ import { json as jsonLang } from "@codemirror/lang-json";
 import { css as cssLang } from "@codemirror/lang-css";
 import { html as htmlLang } from "@codemirror/lang-html";
 import { javascript as jsLang } from "@codemirror/lang-javascript";
+import { sql as sqlLang } from "@codemirror/lang-sql";
 import useInputOutput from "@/store/useInputOutput";
 import useLanguage from "@/store/useLanguage";
 import { useState } from "react";
@@ -93,11 +94,9 @@ const Home = () => {
                   ? jsonLang()
                   : language === "css"
                     ? cssLang()
-                    : language === "html"
-                      ? htmlLang()
-                      : language === "js"
-                        ? jsLang()
-                        : jsLang(), // Default to JavaScript if no language matches
+                    : language === "sql"
+                      ? sqlLang()
+                      : sqlLang(),
               ]}
               onChange={setInput}
               aria-labelledby={`${language}-input-label`}
@@ -133,11 +132,9 @@ const Home = () => {
                   ? jsonLang()
                   : language === "css"
                     ? cssLang()
-                    : language === "html"
-                      ? htmlLang()
-                      : language === "js"
-                        ? jsLang()
-                        : jsLang(), // Default to JavaScript if no language matches
+                    : language === "sql"
+                      ? sqlLang()
+                      : sqlLang(),
               ]}
               readOnly
               aria-labelledby={`${language}-output-label`}
