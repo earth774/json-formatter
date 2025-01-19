@@ -31,11 +31,23 @@ import { html as htmlLang } from "@codemirror/lang-html";
 import { javascript as jsLang } from "@codemirror/lang-javascript";
 import useInputOutput from "@/store/useInputOutput";
 import useLanguage from "@/store/useLanguage";
+import { useState } from "react";
+import { useEffect } from "react";
 
 
 const Home = () => {
   const { input, output, setInput } = useInputOutput();
   const { language } = useLanguage();
+
+  const [isHydrated, setIsHydrated] = useState(false);
+
+  useEffect(() => {
+    setIsHydrated(true);
+  }, []);
+
+  if (!isHydrated) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="flex min-h-screen flex-col">

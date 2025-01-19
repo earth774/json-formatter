@@ -1,26 +1,29 @@
 'use client'
 
 import { create } from 'zustand';
+import { persist, createJSONStorage } from 'zustand/middleware';
 
 interface LanguageState {
     language: string;
     setLanguage: (language: string) => void;
 }
 
-const getInitialLanguage = () => {
-    if (typeof window !== "undefined") {
-      const data = localStorage.getItem("data");
-      const dataParsed = data ? JSON.parse(data) : { language: 'json' };
-      return dataParsed.language;
-    }
-    return "json";
-  };
 
 const useLanguage = create<LanguageState>()(
+  persist(
         (set) => ({
-            language: getInitialLanguage(),
+            language: "sql",
             setLanguage: (language: string) => set({ language }),
         }),
+        {
+            name: "language",
+            storage: createJSONStorage(() => localStorage),
+            onRehydrateStorage: () => (state) => {
+              console.log('State rehydrated:', state);
+            },
+
+        }
+    )
 );
 
 export default useLanguage;
