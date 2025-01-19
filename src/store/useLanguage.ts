@@ -12,7 +12,7 @@ interface LanguageState {
 const useLanguage = create<LanguageState>()(
   persist(
         (set) => ({
-            language: "sql",
+            language: "json",
             setLanguage: (language: string) => set({ language }),
         }),
         {
