@@ -15,15 +15,21 @@ const ButtonBeautiful = dynamic(() => import("@/components/ButtonBeautiful"), {
 const ButtonCompact = dynamic(() => import("@/components/ButtonCompact"), {
   ssr: true,
 });
-const LanguageDropDown = dynamic(() => import("@/components/LanguageDropDown"), {
-  ssr: true,
-});
+const LanguageDropDown = dynamic(
+  () => import("@/components/LanguageDropDown"),
+  {
+    ssr: true,
+  }
+);
 const ButtonSave = dynamic(() => import("@/components/ButtonSave"), {
   ssr: true,
 });
-const TabSpaceDropDown = dynamic(() => import("@/components/TabSpaceDropDown"), {
-  ssr: true,
-});
+const TabSpaceDropDown = dynamic(
+  () => import("@/components/TabSpaceDropDown"),
+  {
+    ssr: true,
+  }
+);
 
 import { json as jsonLang } from "@codemirror/lang-json";
 import { css as cssLang } from "@codemirror/lang-css";
@@ -33,7 +39,7 @@ import useInputOutput from "@/store/useInputOutput";
 import useLanguage from "@/store/useLanguage";
 import { useState } from "react";
 import { useEffect } from "react";
-
+import Loading from "@/app/assets/icon/loading";
 
 const Home = () => {
   const { input, output, setInput } = useInputOutput();
@@ -46,7 +52,7 @@ const Home = () => {
   }, []);
 
   if (!isHydrated) {
-    return <div>Loading...</div>;
+    return <div className="flex justify-center items-center h-screen"><Loading /></div>;
   }
 
   return (
